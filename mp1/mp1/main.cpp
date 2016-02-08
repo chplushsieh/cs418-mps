@@ -22,6 +22,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
 
+// Wireframe mode toggle
+int fillMode = 1;
+void toggleWireframeMode(){
+    fillMode = abs(fillMode - 1);
+}
+
 // The MAIN function, from here we start the application and run the game loop
 int main()
 {
@@ -126,18 +132,18 @@ int main()
     
     glBindVertexArray(0); // Unbind VAO
     
-    // Uncommenting this call will result in wireframe polygons.
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    
     // Game loop
     while (!glfwWindowShouldClose(window))
     {
         // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
         glfwPollEvents();
         
+        // Uncommenting this call will result in wireframe polygons.
+        glPolygonMode (GL_FRONT_AND_BACK, fillMode ? GL_FILL : GL_LINE) ;
+        
         // Render
         // Clear the colorbuffer
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         
         // Draw the triangle
@@ -145,12 +151,17 @@ int main()
         
         // Create transformations
         glm::mat4 transform;
-        transform = glm::translate(transform, glm::vec3(0.3f, -0.3f, 0.0f));
-        transform = glm::rotate(transform, (GLfloat)glfwGetTime() * 10.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+        //transform = glm::translate(transform, glm::vec3(0.3f, -0.3f, 0.0f));
+        transform = glm::scale(transform, glm::vec3(0.5, 0.5, 0.5));
+        transform = glm::rotate(transform, (GLfloat)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.0f, 0.0f, 1.0f));
         
         // Get matrix's uniform location and set matrix
         GLint transformLoc = glGetUniformLocation(ourShader.Program, "transform");
         glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+        
+        // Get matrix's uniform location and set time
+        GLfloat timeLoc = glGetUniformLocation(ourShader.Program, "time");
+        glUniform1f(timeLoc, (GLfloat)glfwGetTime());
         
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 42, GL_UNSIGNED_INT, 0);
@@ -173,4 +184,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
+    if (key == GLFW_KEY_W && action == GLFW_PRESS)
+        toggleWireframeMode();
 }
