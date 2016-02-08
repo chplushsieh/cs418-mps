@@ -7,6 +7,11 @@
 // GLFW
 #include <GLFW/glfw3.h>
 
+// GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 // Other includes
 #include "Shader.h"
 
@@ -49,7 +54,6 @@ int main()
     
     // Build and compile our shader program
     Shader ourShader("shader.vs", "shader.frag");
-    
     
     // Set up vertex data (and buffer(s)) and attribute pointers
 //    GLfloat vertices[] = {
@@ -138,6 +142,16 @@ int main()
         
         // Draw the triangle
         ourShader.Use();
+        
+        // Create transformations
+        glm::mat4 transform;
+        transform = glm::translate(transform, glm::vec3(0.3f, -0.3f, 0.0f));
+        transform = glm::rotate(transform, (GLfloat)glfwGetTime() * 10.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+        
+        // Get matrix's uniform location and set matrix
+        GLint transformLoc = glGetUniformLocation(ourShader.Program, "transform");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+        
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 42, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
