@@ -1,12 +1,18 @@
+Environment:
+
+- OSX El Capitan Version 10.11.3
+- Xcode 7.2.1
+- C++
+- External Libraries Used: GLFW3, GLEW, GLM
 
 Demo:
 
 1. See demo at:
 https://youtu.be/15lcSltNXRk
 
-Environment Setup:
+Setup:
 
-1. Install glfw3, glew, and glw using Homebrew. Or run 'bash mp1.sh'
+1. Install glfw3, glew, and glm using Homebrew. Or run 'bash mp1.sh'
 2. Open project in Xcode
 3. In Xcode, go to:
   Project Navigator/mp1 -> TARGETS/mp1 -> Build Phases -> Link Binary with Libraries
@@ -32,6 +38,9 @@ Environment Setup:
   Add '/usr/local/include'
 
 Usage:
+
 1. Click 'Build and Run' in Xcode
+
 2. Click 'w' to turn on/off wireframe mode
+
 3. Click 'Esc' to quit
