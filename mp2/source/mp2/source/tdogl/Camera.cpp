@@ -22,14 +22,12 @@
 
 using namespace tdogl;
 
-static const float MaxPitchAngle = 85.0f; //must be less than 90 to avoid gimbal lock
-static const float MaxRollAngle  = 85.0f;
-
 Camera::Camera() :
-    _position(0.0f, 0.0f, 1.0f),
-    _xAxisRotateAngle(0.0f),
-    _yAxisRotateAngle(0.0f),
-    _zAxisRotateAngle(0.0f),
+    _position(0.0f, 0.0f, 0.0f),
+    _up(0.0f, 1.0f, 0.0f),
+    _right(1.0f, 0.0f, 0.0f),
+    _forward(0.0f, 0.0f, -1.0f),
+
     _fieldOfView(50.0f),
     _nearPlane(0.01f),
     _farPlane(100.0f),
@@ -47,6 +45,18 @@ void Camera::setPosition(const glm::vec3& position) {
 
 void Camera::offsetPosition(const glm::vec3& offset) {
     _position += offset;
+}
+
+glm::vec3 Camera::forward() const {
+    return _forward;
+}
+
+glm::vec3 Camera::right() const {
+    return _right;
+}
+
+glm::vec3 Camera::up() const {
+    return _up;
 }
 
 float Camera::fieldOfView() const {
@@ -75,25 +85,46 @@ void Camera::setNearAndFarPlanes(float nearPlane, float farPlane) {
 
 glm::mat4 Camera::orientation() const {
     glm::mat4 orientation;
-    orientation = glm::rotate(orientation, glm::radians(_xAxisRotateAngle), glm::vec3(1,0,0));
-    orientation = glm::rotate(orientation, glm::radians(_yAxisRotateAngle), glm::vec3(0,1,0));
-    orientation = glm::rotate(orientation, glm::radians(_zAxisRotateAngle), glm::vec3(0,0,1));
-    return orientation;
+
+    orientation = glm::mat4(
+        _right.x, _up.x, -_forward.x, 0, // first column (not row!)
+        _right.y, _up.y, -_forward.y, 0,
+        _right.z, _up.z, -_forward.z, 0,
+               0,     0,           0, 1
+    );
+    
+     return orientation;
 }
 
-void Camera::offsetOrientation(float pitchAngle, float yawAngle, float rollAngle) {
-    _xAxisRotateAngle += pitchAngle;
-    _yAxisRotateAngle += yawAngle;
-    _zAxisRotateAngle += rollAngle;
-    normalizeAngles();
+void Camera::fly(float distance){
+    _position = _position + distance * forward();
+    
 }
-
-void Camera::lookAt(glm::vec3 position) {
-    assert(position != _position);
-    glm::vec3 direction = glm::normalize(position - _position);
-    _xAxisRotateAngle = glm::radians(asinf(-direction.y));
-    _yAxisRotateAngle = -glm::radians(atan2f(-direction.x, -direction.z));
-    normalizeAngles();
+void Camera::pitch(float degree){
+    
+    glm::mat4 pitching = glm::rotate(glm::mat4(), glm::radians(degree), right());
+    
+    //pitching = glm::inverse(pitching);
+    
+    _forward = glm::vec3( pitching * glm::vec4(_forward, 1.0f) );
+    _up = glm::vec3( pitching * glm::vec4(_up, 1.0f) );
+    
+}
+void Camera::yaw(float degree){
+    
+    glm::mat4 yawing = glm::rotate(glm::mat4(), glm::radians(degree), up());
+    
+    _right = glm::vec3( yawing * glm::vec4(right(), 1.0f) );
+    _forward = glm::vec3( yawing * glm::vec4(forward(), 1.0f) );
+    
+}
+void Camera::roll(float degree){
+    
+    glm::mat4 rolling = glm::rotate(glm::mat4(), glm::radians(degree), forward());
+    
+    _right = glm::vec3( rolling * glm::vec4(right(), 1.0f) );
+    _up = glm::vec3( rolling * glm::vec4(up(), 1.0f) );
+    
 }
 
 float Camera::viewportAspectRatio() const {
@@ -103,21 +134,6 @@ float Camera::viewportAspectRatio() const {
 void Camera::setViewportAspectRatio(float viewportAspectRatio) {
     assert(viewportAspectRatio > 0.0);
     _viewportAspectRatio = viewportAspectRatio;
-}
-
-glm::vec3 Camera::forward() const {
-    glm::vec4 forward = glm::inverse(orientation()) * glm::vec4(0,0,-1,1);
-    return glm::vec3(forward);
-}
-
-glm::vec3 Camera::right() const {
-    glm::vec4 right = glm::inverse(orientation()) * glm::vec4(1,0,0,1);
-    return glm::vec3(right);
-}
-
-glm::vec3 Camera::up() const {
-    glm::vec4 up = glm::inverse(orientation()) * glm::vec4(0,1,0,1);
-    return glm::vec3(up);
 }
 
 glm::mat4 Camera::matrix() const {
@@ -130,22 +146,4 @@ glm::mat4 Camera::projection() const {
 
 glm::mat4 Camera::view() const {
     return orientation() * glm::translate(glm::mat4(), -_position);
-}
-
-void Camera::normalizeAngles() {
-
-    if(_xAxisRotateAngle > MaxPitchAngle)
-        _xAxisRotateAngle = MaxPitchAngle;
-    else if(_xAxisRotateAngle < -MaxPitchAngle)
-        _xAxisRotateAngle = -MaxPitchAngle;
-    
-    _yAxisRotateAngle = fmodf(_yAxisRotateAngle, 360.0f);
-    //fmodf can return negative values, but this will make them all positive
-    if(_yAxisRotateAngle < 0.0f)
-        _yAxisRotateAngle += 360.0f;
-    
-    if(_zAxisRotateAngle > MaxRollAngle)
-        _zAxisRotateAngle = MaxRollAngle;
-    else if(_zAxisRotateAngle < -MaxRollAngle)
-        _zAxisRotateAngle = -MaxRollAngle;
 }

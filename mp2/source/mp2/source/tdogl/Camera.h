@@ -91,23 +91,16 @@ namespace tdogl {
         glm::mat4 orientation() const;
 
         /**
-         Offsets the cameras orientation.
-
-         The verticle angle is constrained between 85deg and -85deg to avoid gimbal lock.
-
-         @param pitchAngle     the angle (in degrees) to offset upwards. Negative values are downwards.
-         @param yawAngle  the angle (in degrees) to offset rightwards. Negative values are leftwards.
-         @param rollAngle   the angle (in degrees) to offset rolling rightwards around orientation.
-                            Negative values are leftwards.
+         Offsets the cameras position.
          */
-        void offsetOrientation(float pitchAngle, float yawAngle, float rollAngle);
-
+        void fly(float distance);
+        
         /**
-         Orients the camera so that is it directly facing `position`
-
-         @param position  the position to look at
+         Offsets the cameras orientation.
          */
-        void lookAt(glm::vec3 position);
+        void pitch(float degree);
+        void yaw(float degree);
+        void roll(float degree);
 
         /**
          The width divided by the height of the screen/window/viewport
@@ -148,15 +141,14 @@ namespace tdogl {
 
     private:
         glm::vec3 _position;
-        float _xAxisRotateAngle;
-        float _yAxisRotateAngle;
-        float _zAxisRotateAngle;
+        glm::vec3 _up;
+        glm::vec3 _right;
+        glm::vec3 _forward;
+        
         float _fieldOfView;
         float _nearPlane;
         float _farPlane;
         float _viewportAspectRatio;
-
-        void normalizeAngles();
     };
 
 }

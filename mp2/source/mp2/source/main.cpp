@@ -28,6 +28,7 @@ http://www.tomdalling.com/blog/category/modern-opengl/
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/random.hpp>
+#include <glm/ext.hpp>
 
 // standard C++ libraries
 #include <cassert>
@@ -91,7 +92,7 @@ GLFWwindow* gWindow = NULL;
 tdogl::Camera gCamera;
 ModelAsset gBox;
 std::list<ModelInstance> gInstances;
-GLfloat flyingSpeed = 0.5f;//units per second
+GLfloat flyingSpeed = 1.5f;//units per second
 
 
 // returns a new tdogl::Program created from the given vertex and fragment shader filenames
@@ -227,7 +228,7 @@ static void CreateRandomInstance() {
 static void CreateInstances() {
     
     // create a lot of box instances
-    int numOfBoxes = 2000;
+    int numOfBoxes = 800;
     for(int i = 0; i < numOfBoxes; i = i + 1 ){
         CreateRandomInstance();
     }
@@ -279,7 +280,7 @@ static void Render() {
 static void Update(float secondsElapsed) {
     
     //constantly move position of camera forward
-    gCamera.offsetPosition(secondsElapsed * flyingSpeed * gCamera.forward());
+    gCamera.fly(secondsElapsed * flyingSpeed);
     
     //accelerate flying speed based on XZ keys
     const GLfloat accelerateFlyingPerSecond = 1.3f; //units per second
@@ -294,22 +295,21 @@ static void Update(float secondsElapsed) {
     const GLfloat yawDegreesPerSecond   = 25.0f; //degrees per second
     const GLfloat rollDegreesPerSecond  = 25.0f; //degrees per second
     if(glfwGetKey(gWindow, 'S')){
-        gCamera.offsetOrientation(secondsElapsed * pitchDegreesPerSecond, 0, 0);
+        gCamera.pitch(secondsElapsed * -pitchDegreesPerSecond);
     } else if(glfwGetKey(gWindow, 'W')){
-        gCamera.offsetOrientation(secondsElapsed * -pitchDegreesPerSecond, 0, 0);
+        gCamera.pitch(secondsElapsed * pitchDegreesPerSecond);
     }
     if(glfwGetKey(gWindow, 'A')){
-        gCamera.offsetOrientation(0, secondsElapsed * -yawDegreesPerSecond, 0);
+        gCamera.yaw(secondsElapsed * yawDegreesPerSecond);
     } else if(glfwGetKey(gWindow, 'D')){
-        gCamera.offsetOrientation(0, secondsElapsed * yawDegreesPerSecond, 0);
+        gCamera.yaw(secondsElapsed * -yawDegreesPerSecond);
     }
     if(glfwGetKey(gWindow, 'Q')){
-        gCamera.offsetOrientation(0, 0, secondsElapsed * -rollDegreesPerSecond);
+        gCamera.roll(secondsElapsed * -rollDegreesPerSecond);
     } else if(glfwGetKey(gWindow, 'E')){
-        gCamera.offsetOrientation(0, 0, secondsElapsed * rollDegreesPerSecond);
+        gCamera.roll(secondsElapsed * rollDegreesPerSecond);
     }
     
-
 }
 
 // callback for keyboard events
@@ -320,7 +320,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         std::list<ModelInstance>::iterator it;
         for(it = gInstances.begin(); it != gInstances.end(); ++it){
             (*it).transform = random_transform();
-
         }
     }
 }
@@ -347,7 +346,6 @@ void AppMain() {
         throw std::runtime_error("glfwCreateWindow failed. Can your hardware handle OpenGL 3.2?");
 
     // GLFW settings
-    glfwSetInputMode(gWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPos(gWindow, 0, 0);
     glfwMakeContextCurrent(gWindow);
     glfwSetKeyCallback(gWindow, key_callback);
@@ -383,7 +381,6 @@ void AppMain() {
     CreateInstances();
 
     // setup gCamera
-    gCamera.setPosition(glm::vec3(0,0,17));
     gCamera.setViewportAspectRatio(SCREEN_SIZE.x / SCREEN_SIZE.y);
 
     // run while the window is open
