@@ -1,0 +1,294 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E2639A1A190D14D100B6251A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2639950190D148400B6251A /* Cocoa.framework */; };
+		E2639B44190D1B0500B6251A /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2639AE7190D169200B6251A /* OpenGL.framework */; };
+		E2639B4A190D1B1500B6251A /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2639AFB190D16FF00B6251A /* IOKit.framework */; };
+		E2639B7B190D1B8F00B6251A /* fragment-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = E2639B6B190D1B8F00B6251A /* fragment-shader.txt */; };
+		E2639B7C190D1B8F00B6251A /* vertex-shader.txt in Resources */ = {isa = PBXBuildFile; fileRef = E2639B6C190D1B8F00B6251A /* vertex-shader.txt */; };
+		E2639B7E190D1B8F00B6251A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2639B6F190D1B8F00B6251A /* main.cpp */; };
+		E2639B80190D1B8F00B6251A /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2639B73190D1B8F00B6251A /* Camera.cpp */; };
+		E2639B81190D1B8F00B6251A /* Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2639B75190D1B8F00B6251A /* Program.cpp */; };
+		E2639B82190D1B8F00B6251A /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2639B77190D1B8F00B6251A /* Shader.cpp */; };
+		E29C2A9219FB7AB100A6FCD2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E29C2A8C19FB7AA500A6FCD2 /* QuartzCore.framework */; };
+		E29C2ACE19FCA1C400A6FCD2 /* glew.c in Sources */ = {isa = PBXBuildFile; fileRef = E29C2AC919FCA1C400A6FCD2 /* glew.c */; };
+		E29C2AD619FCA21E00A6FCD2 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E29C2AC719FCA1A100A6FCD2 /* libglfw3.a */; };
+		E29C2ADE19FCA23000A6FCD2 /* platform_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = E29C2AC819FCA1A100A6FCD2 /* platform_osx.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E2639950190D148400B6251A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		E2639A19190D14D100B6251A /* mp2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mp2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2639AE7190D169200B6251A /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		E2639AFB190D16FF00B6251A /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		E2639B6B190D1B8F00B6251A /* fragment-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fragment-shader.txt"; sourceTree = "<group>"; };
+		E2639B6C190D1B8F00B6251A /* vertex-shader.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vertex-shader.txt"; sourceTree = "<group>"; };
+		E2639B6F190D1B8F00B6251A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		E2639B73190D1B8F00B6251A /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		E2639B74190D1B8F00B6251A /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		E2639B75190D1B8F00B6251A /* Program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Program.cpp; sourceTree = "<group>"; };
+		E2639B76190D1B8F00B6251A /* Program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Program.h; sourceTree = "<group>"; };
+		E2639B77190D1B8F00B6251A /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		E2639B78190D1B8F00B6251A /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		E29C2A8C19FB7AA500A6FCD2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E29C2AC619FCA19100A6FCD2 /* platform.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = platform.hpp; path = source/common/platform.hpp; sourceTree = "<group>"; };
+		E29C2AC719FCA1A100A6FCD2 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = platforms/osx/libglfw3.a; sourceTree = "<group>"; };
+		E29C2AC819FCA1A100A6FCD2 /* platform_osx.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = platform_osx.mm; path = platforms/osx/platform_osx.mm; sourceTree = "<group>"; };
+		E29C2AC919FCA1C400A6FCD2 /* glew.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glew.c; path = source/common/thirdparty/glew/src/glew.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E2639A16190D14D100B6251A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E29C2A9219FB7AB100A6FCD2 /* QuartzCore.framework in Frameworks */,
+				E29C2AD619FCA21E00A6FCD2 /* libglfw3.a in Frameworks */,
+				E2639A1A190D14D100B6251A /* Cocoa.framework in Frameworks */,
+				E2639B44190D1B0500B6251A /* OpenGL.framework in Frameworks */,
+				E2639B4A190D1B1500B6251A /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E2639942190D145C00B6251A = {
+			isa = PBXGroup;
+			children = (
+				E2639B69190D1B8F00B6251A /* mp2 */,
+				E29C2AA019FC9ADC00A6FCD2 /* common */,
+				E263994E190D148400B6251A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E263994E190D148400B6251A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E2639A19190D14D100B6251A /* mp2.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E2639B69190D1B8F00B6251A /* mp2 */ = {
+			isa = PBXGroup;
+			children = (
+				E2639B6A190D1B8F00B6251A /* resources */,
+				E2639B6E190D1B8F00B6251A /* source */,
+			);
+			name = mp2;
+			path = source/mp2;
+			sourceTree = "<group>";
+		};
+		E2639B6A190D1B8F00B6251A /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				E2639B6B190D1B8F00B6251A /* fragment-shader.txt */,
+				E2639B6C190D1B8F00B6251A /* vertex-shader.txt */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		E2639B6E190D1B8F00B6251A /* source */ = {
+			isa = PBXGroup;
+			children = (
+				E2639B6F190D1B8F00B6251A /* main.cpp */,
+				E2639B70190D1B8F00B6251A /* tdogl */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+		E2639B70190D1B8F00B6251A /* tdogl */ = {
+			isa = PBXGroup;
+			children = (
+				E2639B73190D1B8F00B6251A /* Camera.cpp */,
+				E2639B74190D1B8F00B6251A /* Camera.h */,
+				E2639B75190D1B8F00B6251A /* Program.cpp */,
+				E2639B76190D1B8F00B6251A /* Program.h */,
+				E2639B77190D1B8F00B6251A /* Shader.cpp */,
+				E2639B78190D1B8F00B6251A /* Shader.h */,
+			);
+			path = tdogl;
+			sourceTree = "<group>";
+		};
+		E29C2AA019FC9ADC00A6FCD2 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				E29C2AC619FCA19100A6FCD2 /* platform.hpp */,
+				E29C2AC719FCA1A100A6FCD2 /* libglfw3.a */,
+				E29C2AC819FCA1A100A6FCD2 /* platform_osx.mm */,
+				E29C2AC919FCA1C400A6FCD2 /* glew.c */,
+				E29C2A8C19FB7AA500A6FCD2 /* QuartzCore.framework */,
+				E2639AE7190D169200B6251A /* OpenGL.framework */,
+				E2639950190D148400B6251A /* Cocoa.framework */,
+				E2639AFB190D16FF00B6251A /* IOKit.framework */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E2639A18190D14D100B6251A /* mp2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E2639A40190D14D100B6251A /* Build configuration list for PBXNativeTarget "mp2" */;
+			buildPhases = (
+				E2639A15190D14D100B6251A /* Sources */,
+				E2639A16190D14D100B6251A /* Frameworks */,
+				E2639A17190D14D100B6251A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = mp2;
+			productName = 05_asset_instance;
+			productReference = E2639A19190D14D100B6251A /* mp2.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E2639943190D145C00B6251A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+			};
+			buildConfigurationList = E2639946190D145C00B6251A /* Build configuration list for PBXProject "mp2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E2639942190D145C00B6251A;
+			productRefGroup = E263994E190D148400B6251A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E2639A18190D14D100B6251A /* mp2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E2639A17190D14D100B6251A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2639B7B190D1B8F00B6251A /* fragment-shader.txt in Resources */,
+				E2639B7C190D1B8F00B6251A /* vertex-shader.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E2639A15190D14D100B6251A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2639B81190D1B8F00B6251A /* Program.cpp in Sources */,
+				E2639B80190D1B8F00B6251A /* Camera.cpp in Sources */,
+				E2639B7E190D1B8F00B6251A /* main.cpp in Sources */,
+				E2639B82190D1B8F00B6251A /* Shader.cpp in Sources */,
+				E29C2ADE19FCA23000A6FCD2 /* platform_osx.mm in Sources */,
+				E29C2ACE19FCA1C400A6FCD2 /* glew.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E2639947190D145D00B6251A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					GLM_FORCE_RADIANS,
+				);
+				GCC_WARN_PEDANTIC = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/source/common/thirdparty\"/**",
+				);
+				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/platforms/osx\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		E2639948190D145D00B6251A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					GLM_FORCE_RADIANS,
+				);
+				GCC_WARN_PEDANTIC = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(PROJECT_DIR)/source/common/thirdparty\"/**",
+				);
+				LIBRARY_SEARCH_PATHS = "\"$(PROJECT_DIR)/platforms/osx\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+			};
+			name = Release;
+		};
+		E2639A41190D14D100B6251A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/platforms/osx",
+				);
+				PRODUCT_NAME = mp2;
+			};
+			name = Debug;
+		};
+		E2639A42190D14D100B6251A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/platforms/osx",
+				);
+				PRODUCT_NAME = mp2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E2639946190D145C00B6251A /* Build configuration list for PBXProject "mp2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E2639947190D145D00B6251A /* Debug */,
+				E2639948190D145D00B6251A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E2639A40190D14D100B6251A /* Build configuration list for PBXNativeTarget "mp2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E2639A41190D14D100B6251A /* Debug */,
+				E2639A42190D14D100B6251A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E2639943190D145C00B6251A /* Project object */;
+}
