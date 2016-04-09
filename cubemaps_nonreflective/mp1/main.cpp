@@ -254,9 +254,11 @@ int main()
         glm::mat4 model;
         view = camera.GetViewMatrix();
         
+        //set uniforms
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        
         // Cubes
         glBindVertexArray(cubeVAO);
         glActiveTexture(GL_TEXTURE0);
