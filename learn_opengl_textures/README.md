@@ -52,6 +52,4 @@ Usage:
 
 1. Click 'Build and Run' in Xcode
 
-2. Click 'w' to turn on/off wireframe mode
-
-3. Click 'Esc' to quit
+2. Click 'Esc' to quit
