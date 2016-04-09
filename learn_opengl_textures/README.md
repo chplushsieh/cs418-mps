@@ -42,6 +42,7 @@ Setup:
   Project Navigator/mp1 -> TARGETS/mp1 -> Build Settings -> Search Paths:
 
   Add '/usr/local/include' to Header Search Paths
+  
   Add '/opt/local/include/SOIL' to Header Search Paths
 
   Add '/opt/local/lib' to Library Search Paths
