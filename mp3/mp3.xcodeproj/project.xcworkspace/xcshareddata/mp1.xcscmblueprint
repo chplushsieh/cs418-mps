@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B7CBBF692135617FE9D059B184ACB3F239041220",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "917454F26CBD86BA3E59099CA6AE661A3B365DDA" : 0,
+    "B7CBBF692135617FE9D059B184ACB3F239041220" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "08CEE917-4073-4B53-BBD8-2C31B182F17F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "917454F26CBD86BA3E59099CA6AE661A3B365DDA" : "libSOIL\/",
+    "B7CBBF692135617FE9D059B184ACB3F239041220" : "cs418-mps\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "mp1",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "mp3\/mp1.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/smibarber\/libSOIL.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "917454F26CBD86BA3E59099CA6AE661A3B365DDA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/chplushsieh\/cs418-mps.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B7CBBF692135617FE9D059B184ACB3F239041220"
+    }
+  ]
+}
