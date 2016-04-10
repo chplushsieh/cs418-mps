@@ -1,6 +1,9 @@
 // Std. Includes
 #include <string>
 #include <algorithm>
+#include <vector>
+#include <stdio.h>
+#include <cstring>
 using namespace std;
 
 // GLEW
@@ -81,9 +84,12 @@ int main()
     
 #pragma region "object_initialization"
     // Set the object data (buffers, vertex attributes)
-    GLfloat cubeVertices[6*6*8] = {0};
-    loadObj("teapot_0.obj", cubeVertices, 6*6*8);
+    std::vector<GLfloat> cube_vector = loadObj("teapot_0.obj");
 
+    // convert vector to array
+    GLfloat cubeVertices[cube_vector.size()];
+    std::copy(cube_vector.begin(), cube_vector.end(), cubeVertices);
+    
     GLfloat skyboxVertices[] = {
         // Positions
         -1.0f,  1.0f, -1.0f,
@@ -229,7 +235,7 @@ int main()
         glActiveTexture(GL_TEXTURE0);
         
         glBindVertexArray(cubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36); //TODO
+        glDrawArrays(GL_TRIANGLES, 0, int(sizeof(cubeVertices) / (8 * sizeof(GLfloat))));
         glBindVertexArray(0);
         
         

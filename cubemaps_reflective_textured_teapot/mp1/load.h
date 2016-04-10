@@ -21,10 +21,23 @@
 
 #include <SOIL.h>
 
+void add_face_point(unsigned int idx, std::vector<GLfloat> & cube_vector, std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals, std::vector<glm::vec2> texture_coords);
 glm::vec3 computeFaceNormal(glm::uvec3 face, std::vector<glm::vec3> vertices);
-void loadObj(GLchar* path, GLfloat* vertices, int vectices_size);
+std::vector<GLfloat> loadObj(GLchar* path);
 GLuint loadTexture(GLchar* path);
 GLuint loadCubemap(vector<const GLchar*> faces);
+
+void add_face_point(unsigned int idx, std::vector<GLfloat> & cube_vector, std::vector<glm::vec3> vertices, std::vector<glm::vec3> normals, std::vector<glm::vec2> texture_coords)
+{
+    cube_vector.push_back(vertices.at(idx).x);
+    cube_vector.push_back(vertices.at(idx).y);
+    cube_vector.push_back(vertices.at(idx).z);
+    cube_vector.push_back(normals.at(idx).x);
+    cube_vector.push_back(normals.at(idx).y);
+    cube_vector.push_back(normals.at(idx).z);
+    cube_vector.push_back(texture_coords.at(idx).x);
+    cube_vector.push_back(texture_coords.at(idx).y);
+}
 
 glm::vec3 computeFaceNormal(glm::uvec3 face, std::vector<glm::vec3> vertices)
 {
@@ -36,8 +49,10 @@ glm::vec3 computeFaceNormal(glm::uvec3 face, std::vector<glm::vec3> vertices)
 }
 
 // load object file
-void loadObj(GLchar* path, GLfloat* cubeVertices, int cube_vectices_size)
+std::vector<GLfloat> loadObj(GLchar* path)
 {
+    std::vector<GLfloat> cube_vector;
+    
     // load file data
     std::vector<glm::vec3> vertices;
     std::vector<glm::uvec3> faces;
@@ -46,7 +61,7 @@ void loadObj(GLchar* path, GLfloat* cubeVertices, int cube_vectices_size)
     if( file == NULL ){
         printf("Impossible to open the file ! Are you in the right path ?\n");
         getchar();
-        return;
+        return cube_vector;
     }
     while( 1 ){
         
@@ -77,6 +92,7 @@ void loadObj(GLchar* path, GLfloat* cubeVertices, int cube_vectices_size)
             // Probably a comment, eat up the rest of the line
             char stupidBuffer[1000];
             fgets(stupidBuffer, 1000, file);
+            //printf("%s\n", stupidBuffer);
         }
     }
     
@@ -101,7 +117,7 @@ void loadObj(GLchar* path, GLfloat* cubeVertices, int cube_vectices_size)
     for(int i=0; i<faces.size(); ++i){
         glm::uvec3 face = faces.at(i);
         glm::vec3 face_normal = face_normals.at(i);
-        printf("face_normal length: %f\n", glm::length(face_normal));
+        //printf("face_normal length: %f\n", glm::length(face_normal));
         
         for(int j=0; j<3; j++){
             unsigned int vertex_idx = face[j];
@@ -125,58 +141,76 @@ void loadObj(GLchar* path, GLfloat* cubeVertices, int cube_vectices_size)
     // where the angle theta is atan2(z,x).
     // Then you can set texture coordinates (s,t) as
     // s = (theta+PI)/2PI and t = y/ymax (since the base of the teapot is at y = 0)
-    
     // You can also use simple orthographic rectilinear texture coordinates s = x, t = y
+    std::vector<glm::vec2> texture_coords;
+    for (std::vector<glm::vec3>::const_iterator vertex = vertices.begin(); vertex != vertices.end(); ++vertex){
+        glm::vec2 texture_coord((*vertex));
+        //printf("(*vertex) %f %f %f\n", (*vertex).x, (*vertex).y, (*vertex).z);
+        //printf("texture_coord %f %f\n", texture_coord.x, texture_coord.y);
+        texture_coords.push_back(texture_coord);
+    }
     // (or set OpenGL to texgen those coordinates automatically).
     
+//    GLfloat givenCubeVertices[] = {
+//        // Positions          // Normal            //Texture Coords
+//        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+//        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 0.0f,
+//        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
+//        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
+//        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 1.0f,
+//        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,    0.0f, 0.0f,
+//        
+//        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+//        0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,    1.0f, 0.0f,
+//        0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,     1.0f, 1.0f,
+//        0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,     1.0f, 1.0f,
+//        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,     0.0f, 1.0f,
+//        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+//        
+//        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,    1.0f, 0.0f,
+//        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+//        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f, 0.0f, 1.0f,
+//        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f, 0.0f, 1.0f,
+//        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
+//        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+//        
+//        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+//        0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+//        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+//        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+//        0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+//        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+//        
+//        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+//        0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,   1.0f, 1.0f,
+//        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,   1.0f, 0.0f,
+//        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,    1.0f, 0.0f,
+//        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,    0.0f, 0.0f,
+//        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,    0.0f, 1.0f,
+//        
+//        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+//        0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+//        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+//        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+//        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+//        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
+//    };
+//    int givenCubeVertices_size = sizeof(givenCubeVertices) / sizeof(givenCubeVertices[0]);
+//    for(int i = 0; i < givenCubeVertices_size; ++i){
+//        cube_vector.push_back(givenCubeVertices[i]);
+//    }
     
-    GLfloat givenCubeVertices[] = {
-        // Positions          // Normal            //Texture Coords
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,   0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,    0.0f, 0.0f,
+    for (std::vector<glm::uvec3>::const_iterator face = faces.begin(); face != faces.end(); ++face){
+        unsigned int a = (*face)[0];
+        unsigned int b = (*face)[1];
+        unsigned int c = (*face)[2];
         
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,    1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,     1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,     1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,     0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-        
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,    1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f, 0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-        
-        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-        
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,   1.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,   1.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,    1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,    0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,    0.0f, 1.0f,
-        
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
-    };
+        add_face_point(a, cube_vector, vertices, normals, texture_coords);
+        add_face_point(b, cube_vector, vertices, normals, texture_coords);
+        add_face_point(c, cube_vector, vertices, normals, texture_coords);
+    }
     
-    for(int i = 0; i < cube_vectices_size; ++i)
-        cubeVertices[i] = givenCubeVertices[i];
+    return cube_vector;
 }
 
 // Loads a cubemap texture from 6 individual texture faces
