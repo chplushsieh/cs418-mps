@@ -102,7 +102,7 @@
 				5AF0B8421C66991100EB7F7B /* libGLEW.1.12.0.dylib */,
 				5AF0B8401C6698C500EB7F7B /* libglfw3.3.1.dylib */,
 				5AF0B83E1C6698A300EB7F7B /* OpenGL.framework */,
-				5AF0B8361C66970200EB7F7B /* mp1 */,
+				5AF0B8361C66970200EB7F7B /* mp3 */,
 				5AF0B8351C66970200EB7F7B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,7 +115,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5AF0B8361C66970200EB7F7B /* mp1 */ = {
+		5AF0B8361C66970200EB7F7B /* mp3 */ = {
 			isa = PBXGroup;
 			children = (
 				5ADD10741CBA1E440025CD80 /* container.png */,
@@ -132,7 +132,7 @@
 				5AC5963E1CB88C4C0085E67C /* camera.h */,
 				5A8797801CB99FD100E043BD /* load.h */,
 			);
-			path = mp1;
+			path = mp3;
 			sourceTree = "<group>";
 		};
 		5AF0B8451C6849D200EB7F7B /* shaders */ = {
