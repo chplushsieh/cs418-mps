@@ -13,14 +13,14 @@ The code is modified from <http://learnopengl.com/>
 2. Install SOIL by following the instructions in 'install_soil.sh'
 3. Open project in Xcode
 4. In Xcode, go to:
-  Project Navigator/mp1 -> TARGETS/mp1 -> Build Phases -> Link Binary with Libraries
+  Project Navigator/mp3 -> TARGETS/mp3 -> Build Phases -> Link Binary with Libraries
      * Click the + sign to add 'OpenGL.framework'
      * Click the + sign, and then 'Add Other ...' to add '/usr/local/Cellar/glfw3/3.1.2/lib/libglfw3.3.1.dylib'
      * Click the + sign, and then 'Add Other ...' to add '/usr/local/Cellar/glew/1.12.0/lib/libGLEW.1.12.0.dylib'
      * Click the + sign, and then 'Add Other ...' to add '(path to cloned SOIL repo in Step 2)/libSOIL/libSOIL.dylib'
 
 5. In Xcode, go to:
-  Project Navigator/mp1 -> TARGETS/mp1 -> Build Phases -> Copy Files
+  Project Navigator/mp3 -> TARGETS/mp3 -> Build Phases -> Copy Files
      * Select 'Destination: Products directory'
      * Clear 'Subpath: ' input box
      * Don't check 'Copy only when installing'
@@ -42,7 +42,7 @@ The code is modified from <http://learnopengl.com/>
             - left.jpg
 
 5. In Xcode, go to:
-  Project Navigator/mp1 -> TARGETS/mp1 -> Build Settings -> Search Paths:
+  Project Navigator/mp3 -> TARGETS/mp3 -> Build Settings -> Search Paths:
 
      * Add '/usr/local/include' to Header Search Paths
      * Add '/opt/local/include/SOIL' to Header Search Paths
